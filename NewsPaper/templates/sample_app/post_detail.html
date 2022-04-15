@@ -1,0 +1,58 @@
+{% extends 'flatpages/default.html' %}
+ 
+{% block title %} Product list {% endblock title %}
+ 
+{% block content %}
+<h2>&nbsp;</h2>
+<h2><i>Подробности</i></h2>
+<h2>&nbsp;</h2>
+<table>
+    <thead>
+        <th>
+            Категория
+        </th>
+        <th>
+            Источник
+        </th>
+        <th>
+            Дата
+        </th>
+        <th>
+            Имя
+        </th>
+        <th>
+            Текст
+        </th>
+    </thead>
+    <tr>
+        <td>
+            {{ post.category|title }}
+        </td>
+        <td>
+            {{ post.source.name|title }}
+        </td>
+        <td>
+            {{ post.date }}
+        </td>
+        <td>
+            {{ post.name }}
+        </td>
+        <td>
+            {{ post.description }}
+        </td>
+
+        <hr>
+        {% if is_not_subscribe %}
+        <!--GET запрос, который передает в наше представление значение категории, переменная post.category.id, -->
+        <!--которая в дальнейшем необходима для добавления подписчиков-->
+        <button><a href="add_subscribe/?pk={{ post.category.id }}">Подисаться на все статьи категории {{ post.category }}</a></button>
+        {% endif %}
+
+        {% if is_subscribe %}
+        <button><a href="del_subscribe/?pk={{ post.category.id }}">Отписаться от статей категории {{ post.category }}</a></button>
+        {% endif %}
+        <hr>
+        
+    </tr>
+</table>
+{% endblock content %}
